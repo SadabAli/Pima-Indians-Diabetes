@@ -1,0 +1,25 @@
+stages:
+  preprocess:
+    cmd: python src/preprocess.py
+    deps:
+      - data/raw/data.csv
+      - src/preprocess.py
+    params:
+      - preprocess.input
+      - preprocess.output
+    outs:
+      - data/preprocess/data.csv
+
+  train:
+    cmd: python src/train.py
+    deps:
+      - data/preprocess/data.csv
+      - src/train.py
+    params:
+      - train.data
+      - train.max_depth
+      - train.model
+      - train.n_estimator
+      - train.random_state
+    outs:
+      - models/model.pkl
